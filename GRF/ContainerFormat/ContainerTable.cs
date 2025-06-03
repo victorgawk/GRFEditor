@@ -62,7 +62,7 @@ namespace GRF.ContainerFormat {
 		/// <summary>
 		/// Gets the entries.
 		/// </summary>
-		public virtual List<Tuple<string, string, TEntry>> FastTupleAccessEntries {
+		public virtual List<Utilities.Extension.Tuple<string, string, TEntry>> FastTupleAccessEntries {
 			get { return _indexedEntries.FastTupleAccessEntries; }
 		}
 

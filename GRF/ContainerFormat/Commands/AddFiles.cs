@@ -15,7 +15,7 @@ namespace GRF.ContainerFormat.Commands {
 		private readonly string[] _files;
 
 		private readonly string _grfPath;
-		private List<Tuple<string, string>> _foldersFilesPath = new List<Tuple<string, string>>(); // Left = correctedPathName, right = originalFileName
+		private List<Utilities.Extension.Tuple<string, string>> _foldersFilesPath = new List<Utilities.Extension.Tuple<string, string>>(); // Left = correctedPathName, right = originalFileName
 		private bool _processed;
 
 		public AddFiles(string grfPath, IEnumerable<string> filesPath, CCallbacks.AddFilesCallback callback) {
@@ -33,12 +33,12 @@ namespace GRF.ContainerFormat.Commands {
 		public void Execute(ContainerAbstract<TEntry> container) {
 			if (!_processed) {
 				foreach (string file in _files.Where(File.Exists)) {
-					_foldersFilesPath.Add(new Tuple<string, string>(EncodingService.CorrectPathExplode(GrfPath.Combine(_grfPath, Path.GetFileName(file))), file));
+					_foldersFilesPath.Add(new Utilities.Extension.Tuple<string, string>(EncodingService.CorrectPathExplode(GrfPath.Combine(_grfPath, Path.GetFileName(file))), file));
 				}
 
 				foreach (string directory in _files.Where(Directory.Exists)) {
 					string toReplace = Path.GetDirectoryName(directory) + "\\";
-					_foldersFilesPath.AddRange(Directory.GetFiles(directory, "*", SearchOption.AllDirectories).Select(p => new Tuple<string, string>(EncodingService.CorrectPathExplode(Path.Combine(_grfPath, p.ReplaceFirst(toReplace, ""))), p)));
+					_foldersFilesPath.AddRange(Directory.GetFiles(directory, "*", SearchOption.AllDirectories).Select(p => new Utilities.Extension.Tuple<string, string>(EncodingService.CorrectPathExplode(Path.Combine(_grfPath, p.ReplaceFirst(toReplace, ""))), p)));
 				}
 
 				_foldersFilesPath = _foldersFilesPath.Distinct(TupleComparer.Default).ToList();
@@ -100,7 +100,7 @@ namespace GRF.ContainerFormat.Commands {
 
 			#region IEqualityComparer<Tuple<string,string>> Members
 
-			public bool Equals(Tuple<string, string> x, Tuple<string, string> y) {
+			public bool Equals(Tuple<string, string> x, Utilities.Extension.Tuple<string, string> y) {
 				return x.Item1 == y.Item1;
 			}
 

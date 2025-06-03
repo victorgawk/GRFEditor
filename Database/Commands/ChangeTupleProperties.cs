@@ -6,7 +6,7 @@ namespace Database.Commands {
 	public class ChangeTupleProperties<TKey, TValue> : ITableCommand<TKey, TValue>, ICombinableCommand
 		where TValue : Tuple {
 		private readonly TValue _tuple;
-		public Dictionary<DbAttribute, Tuple<object, object>> Values = new Dictionary<DbAttribute, Tuple<object, object>>();
+		public Dictionary<DbAttribute, Utilities.Extension.Tuple<object, object>> Values = new Dictionary<DbAttribute, Utilities.Extension.Tuple<object, object>>();
 		private readonly ChangeTupleCallback _callback;
 		private readonly bool _isModified;
 		public TValue Tuple { get { return _tuple; } }
@@ -15,7 +15,7 @@ namespace Database.Commands {
 
 		public ChangeTupleProperties(TValue tuple, DbAttribute attribute, object newValue, ChangeTupleCallback callback = null) {
 			_tuple = tuple;
-			Values[attribute] = new Tuple<object, object>(_tuple.GetValue(attribute.Index), newValue);
+			Values[attribute] = new Utilities.Extension.Tuple<object, object>(_tuple.GetValue(attribute.Index), newValue);
 			_callback = callback;
 			_isModified = _tuple.Modified;
 			Key = tuple.GetKey<TKey>();

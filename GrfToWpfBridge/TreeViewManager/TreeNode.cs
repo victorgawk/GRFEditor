@@ -200,7 +200,7 @@ namespace GrfToWpfBridge.TreeViewManager {
 
 		public void UpdateDisplayEncoding() {
 			Header = EncodingService.DisplayEncoding.GetString(EncodingService.GetOldDisplayEncoding().GetBytes(Header));
-			List<Tuple<string, TreeNode>> children = Children.ToList().Select(p => new Tuple<string, TreeNode>(p.Key, p.Value)).ToList();
+			List<Utilities.Extension.Tuple<string, TreeNode>> children = Children.ToList().Select(p => new Utilities.Extension.Tuple<string, TreeNode>(p.Key, p.Value)).ToList();
 
 			Children.Clear();
 
